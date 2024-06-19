@@ -1,0 +1,33 @@
+/* field-view.component.scss */
+
+.football-field {
+    position: relative;
+    width: 90vw;
+    height: 90vh;
+    border: 4px solid white; /* Field boundary */
+    background-color: #228B22; /* Green field */
+  }
+  
+  .field-svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .line {
+    stroke: white;
+    stroke-width: 0.2;
+  }
+  
+  .text {
+    fill: white;
+    font-size: 2;
+    text-anchor: middle;
+    opacity: 0.3;
+  }
+  
+  .circle {
+    fill: none;
+    stroke: white;
+    stroke-width: 0.2;
+  }
+  
