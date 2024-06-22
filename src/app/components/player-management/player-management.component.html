@@ -1,0 +1,16 @@
+
+<div class="player-management">
+    <div class="player-controls">
+        <button (click)="addPlayer()">Add Player</button>
+        <button (click)="removePlayer()">Remove Player</button>
+      </div>
+    <!-- List of players -->
+    <div
+    *ngFor="let player of players"
+    class="player"
+    cdkDrag
+    [cdkDragData]="player"
+    (cdkDragMoved)="onDragMoved($event, player)">
+    <div class="player-dot" [ngStyle]="{'background-color': player.color}"></div>
+    <span>{{ player.name }}</span>
+</div>

@@ -4,23 +4,25 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../env/env';
 import { AppComponent } from './app.component';
-import { FieldViewComponent } from './field-view/field-view.component';
-import { PlayerManagementComponent } from './player-management/player-management.component';
+import { FieldViewComponent } from './components/field-view/field-view.component';
+import { PlayerManagementComponent } from './components/player-management/player-management.component';
+import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { FormsModule } from '@angular/forms'; 
+import { DraggableDirective } from './directives/dragable.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     FieldViewComponent,
-    PlayerManagementComponent
+    PlayerManagementComponent,
+    DraggableDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    DragDropModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    DragDropModule,
     FieldViewComponent,
     PlayerManagementComponent
     // Other imports
