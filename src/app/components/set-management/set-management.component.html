@@ -1,0 +1,18 @@
+<!-- set-management.component.html -->
+<div>
+  <h3>Manage Sets</h3>
+  <label>
+    Set Name:
+    <input type="text" [(ngModel)]="this.newSetName" />
+  </label>
+  <label>
+    Count:
+    <input type="number" [(ngModel)]="this.newSetCount" />
+  </label>
+  <button (click)="addSet()">Add Set</button>
+
+  <div *ngFor="let set of this.setService.sets$ | async">
+    <h4>{{ set.name }}</h4>
+    <p>Counts: {{ set.count }}</p>
+  </div>
+</div>

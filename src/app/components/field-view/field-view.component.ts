@@ -3,6 +3,8 @@ import { MetronomeService } from '../../services/metronome/metronome.service';
 import { CommonModule } from '@angular/common';
 import { PlayerManagementComponent } from '../player-management/player-management.component';
 import { PlayerService } from '../../services/player/player.services';
+import { SetService } from '../../services/sets/sets.service';
+import { Set } from '../../models/set.model';
 
 @Component({
   selector: 'app-field-view',
@@ -15,6 +17,8 @@ export class FieldViewComponent implements AfterViewInit {
 
   tempo: number = 120;
   players: any;
+  sets: Set[] = [];
+  currentSet: Set | null = null;
 
   ngAfterViewInit() {
     this.createYardLines();
@@ -22,9 +26,16 @@ export class FieldViewComponent implements AfterViewInit {
     this.createHashMarks();
     this.generateGridDots();
     this.players = this.playerService.players$
+
+    this.setService.sets$.subscribe(sets => {
+      this.sets = sets;
+      if (sets.length > 0) {
+        this.currentSet = sets[0]; // Start with the first set
+      }
+    });
   }
 
-  constructor(private playerService: PlayerService, private metronomeService: MetronomeService) {}
+  constructor(private playerService: PlayerService, private metronomeService: MetronomeService,  private setService: SetService,) {}
 
   onDragMoved(event: any, player: any) {
 
@@ -34,9 +45,9 @@ export class FieldViewComponent implements AfterViewInit {
   generateGridDots() {
     const svg = document.getElementsByClassName('field-svg'),
           startX = 10,
-          startY = 3.25,
+          startY = 0,
           endX = 110,
-          endY = 80,
+          endY = 55,
           xIncrement = 2.5,
           yIncrement = 2.5,
           circleRadius = 0.1,
@@ -45,10 +56,10 @@ export class FieldViewComponent implements AfterViewInit {
           gridDotOpacity = "0.4";
 
     for (let x = startX; x <= endX; x += xIncrement) {
-        for (let y = startY; y <= endY; y += yIncrement) {
+        for (let y = endY; y >= startY; y -= yIncrement) {
             const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             circle.setAttribute("cx", x.toString());
-            circle.setAttribute("cy", y.toString());
+            circle.setAttribute("cy",  (y + .8).toString()); //.8 to move the grid to align with the bottom sl
             circle.setAttribute("r", circleRadius.toString());
             circle.setAttribute("fill", "none");
             circle.setAttribute("stroke", circleColor);
